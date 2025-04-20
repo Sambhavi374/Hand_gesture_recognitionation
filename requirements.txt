@@ -1,0 +1,7 @@
+mediapipe
+opencv-python
+Tensorflow
+scikit-learn
+matplotlib
+hand-gesture-recognizer
+numpy
