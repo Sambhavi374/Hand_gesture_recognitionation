@@ -2,29 +2,40 @@ import numpy as np
 import tensorflow as tf
 
 
+
+
+## Recognize the fingure positions/gestures from their history
 class PointHistoryClassifier(object):
     def __init__(
         self,
         model_path='model/point_history_classifier/point_history_classifier.tflite',
-        score_th=0.5,
-        invalid_value=0,
-        num_threads=1,
+        score_th=0.5, # Threshold to determine if the result is valid
+        invalid_value=0, # The value to return if the result is invalid
+        num_threads=1, 
     ):
+
+        # load and prepare the model for inference(predictions)   
         self.interpreter = tf.lite.Interpreter(model_path=model_path,
-                                               num_threads=num_threads)
+                                               num_threads=num_threads) #
 
         self.interpreter.allocate_tensors()
+
+        # get input and output tensors.(details like shape, dtype)
         self.input_details = self.interpreter.get_input_details()
         self.output_details = self.interpreter.get_output_details()
 
         self.score_th = score_th
         self.invalid_value = invalid_value
 
-    def __call__(
-        self,
-        point_history,
-    ):
+
+
+    
+    
+    def __call__(self,point_history):
+
+        
         input_details_tensor_index = self.input_details[0]['index']
+
         self.interpreter.set_tensor(
             input_details_tensor_index,
             np.array([point_history], dtype=np.float32))
