@@ -1,5 +1,5 @@
 import numpy as np
-from tflite_runtime import interpreter
+from tensorflow.lite.python.interpreter import Interpreter
 
 
 class KeyPointClassifier(object):
