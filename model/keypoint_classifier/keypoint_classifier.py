@@ -1,14 +1,15 @@
 import numpy as np
 from tensorflow.lite.python.interpreter import Interpreter
+import os
 
 
 class KeyPointClassifier(object):
     def __init__(
         self,
-        model_path='models/keypoint_classifier.tflite',
+        model_path=os.path.join(os.path.dirname(__file__), 'models/keypoint_classifier.tflite'),
         num_threads=1,
     ):
-        self.interpreter = interpreter.Interpreter(model_path=model_path,
+        self.interpreter = Interpreter(model_path=model_path,
                                                num_threads=num_threads)
 
         self.interpreter.allocate_tensors()
